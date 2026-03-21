@@ -23,7 +23,7 @@ export function authMiddleware(
             return res.status(401).json({error: "Token Error"})
         }
 
-        const [scheme, token] = parts
+        const [, token] = parts
 
         const decoded = jwt.verify(token, "secret") as TokenPayload
 
