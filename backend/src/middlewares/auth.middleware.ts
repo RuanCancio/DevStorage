@@ -25,9 +25,13 @@ export function authMiddleware(
 
         const [, token] = parts
 
-        const decoded = jwt.verify(token, "secret") as TokenPayload
+        if (!process.env.SECRET_KEY) {
+            throw new Error("SECRET_KEY is not defined in .env");
+        }
 
-        req.userId = decoded.userId
+        const decoded = jwt.verify(token, process.env.SECRET_KEY) as TokenPayload
+
+        (req as any).userId = decoded.userId
 
         return next()
 

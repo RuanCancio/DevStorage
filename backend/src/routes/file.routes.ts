@@ -34,7 +34,7 @@ router.post(
 
 //GET
 router.get("/", authMiddleware, async (req, res)=> {
-    const userId = req.userId
+    const userId = (req as any).userId
 
     const files = await prisma.file.findMany({
         where: {
@@ -47,7 +47,7 @@ router.get("/", authMiddleware, async (req, res)=> {
 
 router.get("/:id/download", authMiddleware, async (req, res)=> {
     const { id } = (req as any).params
-    const userId = req.userId
+    const userId = (req as any).userId
 
     const file = await prisma.file.findFirst({
         where: {
@@ -83,7 +83,7 @@ router.get("/public/:id", async (req, res)=> {
     const filePath = path.join(process.cwd(), "uploads", file.path)
 
     if(!fs.existsSync(filePath)) {
-        res.status(404).json({ error: "File not found in disk" })
+       return res.status(404).json({ error: "File not found in disk" })
     }
 
     return res.download(filePath, file.name)
@@ -92,7 +92,7 @@ router.get("/public/:id", async (req, res)=> {
 //DELETE
 router.delete("/:id", authMiddleware, async (req, res)=> {
     const { id } = (req as any).params
-    const userId = req.userId
+    const userId = (req as any).userId
 
     const file = await prisma.file.findFirst({
         where: {

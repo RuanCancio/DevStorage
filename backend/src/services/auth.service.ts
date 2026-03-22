@@ -1,6 +1,9 @@
 import jwt from "jsonwebtoken"
 import bcrypt from "bcrypt"
 import { prisma } from "../database/prisma"
+import dotenv from "dotenv"
+
+dotenv.config()
 
 export class AuthService {
 
@@ -9,7 +12,7 @@ export class AuthService {
             where: { email }
         })
 
-        if(!userExists) {
+        if (!userExists) {
             throw new Error("User already exists")
         }
 
@@ -22,7 +25,7 @@ export class AuthService {
             }
         })
 
-        return {id: user.id, email: user.email}
+        return { id: user.id, email: user.email }
 
     }
 
@@ -31,20 +34,24 @@ export class AuthService {
             where: { email }
         })
 
-        if(!userVerify) {
+        if (!userVerify) {
             throw new Error("Invalid credentials")
         }
 
         const validPassword = await bcrypt.compare(password, userVerify.password)
 
-        if(!validPassword) {
+        if (!validPassword) {
             throw new Error("Invalid credentials")
+        }
+
+        if (!process.env.SECRET_KEY) {
+            throw new Error("SECRET_KEY is not defined in .env");
         }
 
         const token = jwt.sign(
             { userId: userVerify.id },
-           "secret",
-           { expiresIn: "1d"}
+            process.env.SECRET_KEY,
+            { expiresIn: "1d" }
         )
 
         return { token }
