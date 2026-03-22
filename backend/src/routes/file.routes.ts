@@ -45,7 +45,7 @@ router.get("/", authMiddleware, async (req, res)=> {
     return res.json(files)
 })
 
-router.get("/:id/download", authMiddleware, (req, res)=> {
+router.get("/:id/download", authMiddleware, async (req, res)=> {
     const { id } = (req as any).params
     const userId = req.userId
 
