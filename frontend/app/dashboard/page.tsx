@@ -43,7 +43,7 @@ export default function Dashboard() {
                 Authorization: `Bearer ${token}`
             }
         })
-        
+
         setSelectedFile(null)
         loadFiles()
     }

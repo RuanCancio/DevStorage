@@ -1,8 +1,9 @@
+'use client'
 
 export default function Home() {
   return (
-    <div>
-      <h1 className="text-5xl text-center mt-20">Welcome to my page!</h1>
+    <div className="w-screen h-screen flex items-center justify-center bg-linear-to-br from-slate-900 via-slate-800 to-slate-900">
+
     </div>
   );
 }
