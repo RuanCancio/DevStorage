@@ -1,13 +1,15 @@
-version: '3.9'
-
 services:
   postgres:
     image: postgres
-    container_name: devstorage_db
-    restart: always
+    container_name: devstorage-db
     environment:
-      - POSTGRES_USER=dev
-      - POSTGRES_PASSWORD=dev
-      - POSTGRES_DB=devstorage
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: devstorage
     ports:
       - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

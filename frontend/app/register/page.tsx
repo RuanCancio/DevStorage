@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from "react"
-import { useRouter } from "next/router"
 import { api } from "@/services/api"
+import Link from "next/link"
 
 export default function Register() {
 
@@ -25,7 +25,7 @@ export default function Register() {
 
     return (
         <div className="w-screen h-screen flex items-center justify-center bg-linear-to-br from-slate-900 via-slate-800 to-slate-900">
-            <div className="bg-slate-900 shadow-xl shadow-slate-600/20 rounded-2xl flex flex-col p-10 h-80">
+            <div className="bg-slate-900 shadow-xl shadow-slate-600/20 rounded-2xl flex flex-col p-10 h-86">
                 <h1 className="text-2xl text-slate-100 font-medium">Register your account!</h1>
                 <input type="email"
                     placeholder="email"
@@ -42,6 +42,7 @@ export default function Register() {
                 >
                     Cadastre-se
                 </button>
+                <Link href='/login' className=" text-white font-medium text-center py-5 underline">Already have an account? Log in!</Link>
             </div>
         </div>
     )
